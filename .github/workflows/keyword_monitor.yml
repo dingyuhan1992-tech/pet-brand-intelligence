@@ -1,0 +1,29 @@
+name: 关键词排名监控
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 北京时间每天早上9点（UTC 01:00）
+  workflow_dispatch:
+
+jobs:
+  keyword-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check keyword rankings
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          HELIUM10_API_KEY: ${{ secrets.HELIUM10_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          WECHAT_WEBHOOK_URL: ${{ secrets.WECHAT_WEBHOOK_URL }}
+        run: python src/market_monitor/keyword_check.py

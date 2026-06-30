@@ -1,0 +1,58 @@
+# 宠物保健品智能管理系统 - 配置文件
+# 敏感密钥请放在 .env 文件，不要填写在这里
+
+brand:
+  name: "你的品牌名"
+  category: "pet_health_supplements"
+  markets:
+    overseas: ["amazon_us", "amazon_uk", "amazon_de", "shopify"]
+    domestic: ["taobao", "tmall", "douyin"]
+
+# Amazon 配置
+amazon:
+  marketplaces:
+    - us
+    - uk
+    - de
+  core_keywords:
+    - "pet supplements"
+    - "dog vitamins"
+    - "cat health"
+    - "pet probiotics"
+    - "pet omega 3"
+
+# 国内平台配置
+domestic:
+  core_keywords_cn:
+    - "宠物保健品"
+    - "狗狗维生素"
+    - "猫咪营养品"
+    - "宠物益生菌"
+    - "宠物鱼油"
+
+# 自动化任务时间
+schedule:
+  daily_report: "07:00"       # 每日报告推送时间
+  keyword_check: "09:00"      # 关键词排名检查
+  competitor_check: "10:00"   # 竞品监控
+  inventory_check: "18:00"    # 库存预警
+
+# 预警阈值
+alerts:
+  inventory_days_threshold: 30    # 库存低于30天预警
+  bsr_drop_threshold: 500         # BSR下滑超过500名预警
+  review_rating_threshold: 3.5    # 评分低于3.5预警
+  acos_threshold: 35              # ACoS超过35%预警
+
+# Notion 数据库配置（填写你的 Notion Database ID）
+notion:
+  sales_db_id: ""
+  keywords_db_id: ""
+  competitors_db_id: ""
+  inventory_db_id: ""
+  content_db_id: ""
+
+# 通知配置
+notifications:
+  email: ""           # 接收报告的邮箱
+  wechat_webhook: ""  # 企业微信 webhook
