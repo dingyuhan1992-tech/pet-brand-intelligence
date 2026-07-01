@@ -8,7 +8,10 @@ import anthropic
 
 load_dotenv()
 
-client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+client = anthropic.Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),
+    base_url=os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com"),
+)
 
 
 def get_placeholder_data():
