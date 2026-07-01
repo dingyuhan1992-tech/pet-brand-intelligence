@@ -4,7 +4,7 @@ import os
 import json
 from notion_client import Client
 
-NOTION_TOKEN = "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"
+NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
 notion = Client(auth=NOTION_TOKEN)
 
 
