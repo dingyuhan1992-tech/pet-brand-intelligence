@@ -1,4 +1,4 @@
-name: 每日智能报告
+name: Daily Report
 
 on:
   schedule:

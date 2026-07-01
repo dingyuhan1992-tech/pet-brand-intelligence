@@ -1,4 +1,4 @@
-name: 关键词排名监控
+name: Keyword Monitor
 
 on:
   schedule:
