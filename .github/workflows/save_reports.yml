@@ -1,0 +1,38 @@
+name: Save Reports to GitHub
+
+on:
+  workflow_run:
+    workflows: ["Daily Report"]
+    types: [completed]
+  schedule:
+    - cron: '30 23 * * *'  # 北京时间每天早上7:30
+  workflow_dispatch:
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Save report archive
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python src/storage/report_storage.py
+
+      - name: Commit report to GitHub storage
+        run: |
+          git config user.name "Pet Brain Bot"
+          git config user.email "bot@pet-brand.ai"
+          git add data/
+          git diff --staged --quiet || git commit -m "📊 Auto-save report $(date +'%Y-%m-%d')"
+          git push
